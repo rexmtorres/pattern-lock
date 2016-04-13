@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2016.
+  ~
+  ~ Rex M. Torres <rexmtorres@gmail.com>
+  -->
+
+<resources>
+    <!-- =============================== -->
+    <!-- PatternLockView class attributes -->
+    <!-- =============================== -->
+    <eat-comment />
+
+    <declare-styleable name="PatternLockView">
+        <!-- Aspect to use when drawing PatternLockView. Choices are "square"(default), "lock_width"
+             or "lock_height" -->
+        <attr name="aspect" format="string">
+            <enum name="square" value="0"/>
+            <enum name="lock_width" value="1"/>
+            <enum name="lock_height" value="2"/>
+        </attr>
+
+        <!-- Color to use when drawing PatternLockView paths. -->
+        <attr name="pathColor" format="color|reference" />
+
+        <!-- The regular pattern color -->
+        <attr name="regularColor" format="color|reference" />
+
+        <!-- The error color -->
+        <attr name="errorColor" format="color|reference" />
+
+        <!-- The success color -->
+        <attr name="successColor" format="color|reference"/>
+
+        <!-- If defined, the bitmap to use in place of the dots in each cell. -->
+        <attr name="dotBitmap" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="Theme.PatternLockView">
+        <!-- Reference to the style used by PatternLockView. -->
+        <attr name="patternLockViewStyle" format="reference" />
+    </declare-styleable>
+</resources>
