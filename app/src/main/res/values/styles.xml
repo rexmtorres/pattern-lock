@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (c) 2016.
+  ~
+  ~ Rex M. Torres <rexmtorres@gmail.com>
+  -->
+
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="patternLockViewStyle">@style/MyPatternLock</item>
+    </style>
+
+    <style name="MyPatternLock">
+        <item name="dotBitmap">@mipmap/ic_launcher</item>
+        <item name="regularColor">@color/colorPrimaryDark</item>
+        <item name="pathColor">@color/colorPrimary</item>
+        <item name="successColor">@color/holoGreenDark</item>
+        <item name="errorColor">@color/holoRedLight</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+</resources>

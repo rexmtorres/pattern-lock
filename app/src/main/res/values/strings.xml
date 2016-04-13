@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Locked Launcher</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="continue_">Continue</string>
+
+    <string name="draw_pattern_to_unlock">Draw pattern to unlock.</string>
+    <string name="incorrect_pattern">Incorrect pattern!  Try again.</string>
+
+    <string name="pattern_too_short">Pattern too short!  Please use at least 4 cells.</string>
+    <string name="draw_unlock_pattern">Draw your unlock pattern.</string>
+    <string name="confirm_unlock_pattern">Confirm unlock pattern.</string>
+    <string name="mismatch_pattern">Patterns don\'t match!  Try again.</string>
+
+    <string name="set_pattern">Set Pattern</string>
+    <string name="change_pattern">Change Pattern</string>
+    <string name="clear_pattern">Clear Pattern</string>
+
+    <string name="pattern_cleared">Pattern has been erased!</string>
+    <string name="pattern_not_cleared">Pattern was not erased!</string>
+    <string name="pattern_changed">Pattern has been changed!</string>
+    <string name="pattern_not_changed">Pattern was not changed!</string>
+</resources>
