@@ -42,7 +42,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppViewHolder> {
         final AppInfo appInfo = mAppInfos.get(position);
 
         holder.appIcon.setImageDrawable(appInfo.appIcon);
-        holder.appName.setText(appInfo.appName);
+        holder.appLabel.setText(appInfo.appLabel);
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,29 +66,13 @@ public class AppListAdapter extends RecyclerView.Adapter<AppViewHolder> {
     synchronized void setItems(List<AppInfo> appInfos) {
         mAppInfos.clear();
         mAppInfos.addAll(appInfos);
-
-        Collections.sort(mAppInfos, new Comparator<AppInfo>() {
-            @Override
-            public int compare(AppInfo lhs, AppInfo rhs) {
-                return lhs.appName.compareToIgnoreCase(rhs.appName);
-            }
-        });
-
-        mLauncherActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
+        Collections.sort(mAppInfos, mAppInfoComparator);
+        notifyDataSetChangedOnUi();
     }
 
     synchronized void addItem(AppInfo appInfo) {
-        int index = Collections.binarySearch(mAppInfos, appInfo, new Comparator<AppInfo>() {
-            @Override
-            public int compare(AppInfo lhs, AppInfo rhs) {
-                return lhs.appName.compareToIgnoreCase(rhs.appName);
-            }
-        });
+        Log.v("LOCKED_LAUNCHER", "+ addItem");
+        int index = Collections.binarySearch(mAppInfos, appInfo, mAppInfoComparator);
 
         if (index < 0) {
             // Binary search returns a negative integer specifying the location at which
@@ -96,66 +80,97 @@ public class AppListAdapter extends RecyclerView.Adapter<AppViewHolder> {
             // an ordered list.
 
             final int position = -index - 1;
-            Log.d("LOCKED_LAUNCHER", "Inserting " + appInfo + " at position " + position);
+            Log.d("LOCKED_LAUNCHER", "  addItem> Inserting " + appInfo + " at position " + position);
 
             mAppInfos.add(position, appInfo);
-
-            mLauncherActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    notifyItemInserted(position);
-                }
-            });
+            notifyItemInsertedOnUi(position);
         } else {
             // Binary search returns a positive integer specifying the location at which
             // the item is found.
 
             final int position = index;
-            Log.d("LOCKED_LAUNCHER", "Setting " + appInfo + " at position " + position);
+            Log.d("LOCKED_LAUNCHER", "  addItem> Setting " + appInfo + " at position " + position);
 
             mAppInfos.set(index, appInfo);
-
-            mLauncherActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    notifyItemChanged(position);
-                }
-            });
+            notifyItemChangedOnUi(position);
         }
+        Log.v("LOCKED_LAUNCHER", "- addItem");
     }
 
     synchronized void removeItem(AppInfo appInfo) {
-        final int index = Collections.binarySearch(mAppInfos, appInfo, new Comparator<AppInfo>() {
-            @Override
-            public int compare(AppInfo lhs, AppInfo rhs) {
-                return lhs.appName.compareToIgnoreCase(rhs.appName);
-            }
-        });
+        final int index = Collections.binarySearch(mAppInfos, appInfo, mAppInfoComparator);
 
         if (index > -1) {
             mAppInfos.remove(index);
-
-            mLauncherActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    notifyItemRemoved(index);
-                }
-            });
+            notifyItemRemovedOnUi(index);
         }
     }
 
     synchronized void removeAll() {
         mAppInfos.clear();
+        notifyDataSetChangedOnUi();
+    }
 
+    private void notifyDataSetChangedOnUi() {
+        Log.v("LOCKED_LAUNCHER", "+ notifyDataSetChangedOnUi");
         mLauncherActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Log.v("LOCKED_LAUNCHER", "+ notifyDataSetChanged");
                 notifyDataSetChanged();
+                Log.v("LOCKED_LAUNCHER", "- notifyDataSetChanged");
             }
         });
+        Log.v("LOCKED_LAUNCHER", "- notifyDataSetChangedOnUi");
+    }
+
+    private void notifyItemChangedOnUi(final int position) {
+        Log.v("LOCKED_LAUNCHER", "+ notifyItemChangedOnUi");
+        mLauncherActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.v("LOCKED_LAUNCHER", "+ notifyItemChanged");
+                notifyItemChanged(position);
+                Log.v("LOCKED_LAUNCHER", "- notifyItemChanged");
+            }
+        });
+        Log.v("LOCKED_LAUNCHER", "- notifyItemChangedOnUi");
+    }
+
+    private void notifyItemInsertedOnUi(final int position) {
+        Log.v("LOCKED_LAUNCHER", "+ notifyItemInsertedOnUi");
+        mLauncherActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.v("LOCKED_LAUNCHER", "+ notifyItemInserted");
+                notifyItemInserted(position);
+                Log.v("LOCKED_LAUNCHER", "- notifyItemInserted");
+            }
+        });
+        Log.v("LOCKED_LAUNCHER", "- notifyItemInsertedOnUi");
+    }
+
+    private void notifyItemRemovedOnUi(final int position) {
+        Log.v("LOCKED_LAUNCHER", "+ notifyItemRemovedOnUi");
+        mLauncherActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.v("LOCKED_LAUNCHER", "+ notifyItemRemoved");
+                notifyItemRemoved(position);
+                Log.v("LOCKED_LAUNCHER", "- notifyItemRemoved");
+            }
+        });
+        Log.v("LOCKED_LAUNCHER", "- notifyItemRemovedOnUi");
     }
 
     private AppCompatActivity mLauncherActivity;
     private List<AppInfo> mAppInfos;
     private OnItemClickListener mOnItemClickListener;
+
+    private final Comparator<AppInfo> mAppInfoComparator = new Comparator<AppInfo>() {
+        @Override
+        public int compare(AppInfo lhs, AppInfo rhs) {
+            return lhs.appLabel.concat(lhs.packageName).compareTo(rhs.appLabel.concat(rhs.packageName));
+        }
+    };
 }

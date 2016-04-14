@@ -13,19 +13,21 @@ import android.graphics.drawable.Drawable;
  * Created by Rex on 2016.04.12.
  */
 class AppInfo {
-    final String appName;
+    final String appLabel;
+    final String packageName;
     final Drawable appIcon;
     final Intent launchIntent;
 
-    AppInfo(String appName, Drawable appIcon, Intent launchIntent) {
-        this.appName = appName;
+    AppInfo(String appLabel, String packageName, Drawable appIcon, Intent launchIntent) {
+        this.appLabel = appLabel;
+        this.packageName = packageName;
         this.appIcon = appIcon;
         this.launchIntent = launchIntent;
     }
 
     @Override
     public String toString() {
-        return String.format("AppInfo@0x%1$08X { [appName: %2$s] [appIcon: %3$s] [launchIntent: %4$s] }",
-            hashCode(), appName, appIcon, launchIntent);
+        return String.format("AppInfo@0x%1$08X { [appLabel: %2$s] [packageName: %3$s] [appIcon: %4$s] [launchIntent: %5$s] }",
+            hashCode(), appLabel, packageName, appIcon, launchIntent);
     }
 }

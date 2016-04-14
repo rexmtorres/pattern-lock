@@ -7,6 +7,7 @@
 package com.rexmtorres.android.patternlockview;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -14,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     static final String PREF_NAME = "_" + String.valueOf("prefs".hashCode());
     static final String PATTERN_HASH = "_" + String.valueOf("pattern_hash".hashCode());
     static final String PATTERN_SET = "_" + String.valueOf("pattern_set".hashCode());
+    static final String PATTERN_THEME = "_" + String.valueOf("pattern_theme".hashCode());
+
+    static final int PATTERN_THEME_DOT = 0;
+    //static final int PATTERN_THEME_DROID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +57,19 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("LOCKED_LAUNCHER", "pattern set: " + patternSet);
 
                 if (patternSet) {
-                    ValidatePatternActivity.launchApp(MainActivity.this, ((BitmapDrawable) (item.appIcon)).getBitmap(), item.appName, item.launchIntent);
+                    ValidatePatternActivity.launchApp(MainActivity.this, ((BitmapDrawable) (item.appIcon)).getBitmap(), item.appLabel, item.launchIntent);
                 } else {
                     startActivity(item.launchIntent);
                 }
             }
         });
 
+        String orientation = getString(R.string.orientation);
+
         mAppList = (RecyclerView) findViewById(R.id.appList);
         assert mAppList != null;
         mAppList.setHasFixedSize(true);
-        mAppList.setLayoutManager(new GridLayoutManager(this, 3));
+        mAppList.setLayoutManager(new GridLayoutManager(this, "landscape".equals(orientation) ? 5 : 3));
         mAppList.setAdapter(mAppListAdapter);
 
         new AsyncTask<Void, Void, Void>() {
@@ -125,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.clearPattern:
                 ValidatePatternActivity.validate(this, CODE_CLEAR_PATTERN);
                 return true;
+            case R.id.changePatternTheme:
+                changePatternTheme();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -159,6 +170,21 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, R.string.pattern_cleared, Toast.LENGTH_SHORT).show();
     }
 
+    private void changePatternTheme() {
+        final SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+
+        new AlertDialog.Builder(this).setTitle(R.string.dialog_title)
+            .setSingleChoiceItems(R.array.pattern_themes, preferences.getInt(PATTERN_THEME, PATTERN_THEME_DOT),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        preferences.edit().putInt(PATTERN_THEME, which).apply();
+                        getApplication().setTheme(which == PATTERN_THEME_DOT ? R.style.AppThemeDot : R.style.AppThemeDroid);
+                        dialog.dismiss();
+                    }
+                }).show();
+    }
+
     private List<AppInfo> getLaunchableApps() {
         PackageManager manager = getPackageManager();
 
@@ -173,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (launchIntent != null) {
                 launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                launchableApps.add(new AppInfo(applicationInfo.loadLabel(manager).toString(), applicationInfo.loadIcon(manager), launchIntent));
+                launchableApps.add(new AppInfo(applicationInfo.loadLabel(manager).toString(), applicationInfo.packageName, applicationInfo.loadIcon(manager), launchIntent));
             }
         }
 

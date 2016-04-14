@@ -16,12 +16,12 @@ import android.widget.TextView;
  * Created by Rex on 2016.04.12.
  */
 public class AppViewHolder extends RecyclerView.ViewHolder {
-    TextView appName;
+    TextView appLabel;
     ImageView appIcon;
 
     public AppViewHolder(View itemView) {
         super(itemView);
-        appName = (TextView) (itemView.findViewById(R.id.appName));
+        appLabel = (TextView) (itemView.findViewById(R.id.appLabel));
         appIcon = (ImageView) (itemView.findViewById(R.id.appIcon));
         mContainer = (LinearLayout) (itemView.findViewById(R.id.appButton));
     }
