@@ -26,6 +26,11 @@ import java.util.List;
 public class SetPatternActivity extends AppCompatActivity implements PatternLockView.OnPatternListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences preferences = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE);
+        int theme = preferences.getInt(MainActivity.PATTERN_THEME, MainActivity.PATTERN_THEME_DOT);
+
+        setTheme(theme == MainActivity.PATTERN_THEME_DOT ? R.style.AppThemeDot : R.style.AppThemeDroid);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_pattern);
 

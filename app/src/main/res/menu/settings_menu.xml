@@ -26,4 +26,10 @@
         android:title="@string/clear_pattern"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/changePatternTheme"
+        android:orderInCategory="4"
+        android:title="@string/change_pattern_theme"
+        app:showAsAction="never"/>
+
 </menu>

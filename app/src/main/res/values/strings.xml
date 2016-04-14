@@ -16,6 +16,13 @@
     <string name="set_pattern">Set Pattern</string>
     <string name="change_pattern">Change Pattern</string>
     <string name="clear_pattern">Clear Pattern</string>
+    <string name="change_pattern_theme">Change Pattern Theme</string>
+
+    <string name="dialog_title">Choose theme to apply to pattern lock</string>
+    <string-array name="pattern_themes">
+        <item>Dot</item>
+        <item>Droid</item>
+    </string-array>
 
     <string name="pattern_cleared">Pattern has been erased!</string>
     <string name="pattern_not_cleared">Pattern was not erased!</string>

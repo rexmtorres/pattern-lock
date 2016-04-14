@@ -7,15 +7,30 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeDot" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="patternLockViewStyle">@style/MyPatternLock</item>
+        <item name="patternLockViewStyle">@style/MyPatternLockDot</item>
     </style>
 
-    <style name="MyPatternLock">
+    <style name="AppThemeDroid" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="patternLockViewStyle">@style/MyPatternLockDroid</item>
+    </style>
+
+    <style name="MyPatternLockDot">
+        <item name="regularColor">@color/colorPrimaryDark</item>
+        <item name="pathColor">@color/colorPrimary</item>
+        <item name="successColor">@color/holoGreenDark</item>
+        <item name="errorColor">@color/holoRedLight</item>
+    </style>
+
+    <style name="MyPatternLockDroid">
         <item name="dotBitmap">@mipmap/ic_launcher</item>
         <item name="regularColor">@color/colorPrimaryDark</item>
         <item name="pathColor">@color/colorPrimary</item>
@@ -23,7 +38,7 @@
         <item name="errorColor">@color/holoRedLight</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppThemeDot.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
