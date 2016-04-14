@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016.
+  ~
+  ~ Rex M. Torres <rexmtorres@gmail.com>
+  -->
+
 <resources>
+    <string name="orientation">landscape</string>
 </resources>
