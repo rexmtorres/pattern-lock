@@ -1,14 +1,42 @@
 apply plugin: 'com.android.library'
 
+def libVersion = "0.1.0"
+
+// How to upload to jcenter: http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'pattern-lock'
+
+    publishedGroupId = 'com.rexmtorres.android'
+    libraryName = 'pattern-lock'
+    artifact = 'pattern-lock'
+
+    libraryDescription = 'A clone of the AOSP LockPatternView that can be used as a stand alone View. Also provides some customization (e.g. changing the path and dot colors, using a custom bitmap for the cell dots, etc.).'
+
+    siteUrl = 'https://github.com/rexmtorres/pattern-lock'
+    gitUrl = 'https://github.com/rexmtorres/pattern-lock.git'
+
+    libraryVersion = libVersion
+
+    developerId = 'rexmtorres'
+    developerName = 'Rex Mag-uyon Torres'
+    developerEmail = 'rexmtorres@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName libVersion
     }
     buildTypes {
         release {
@@ -21,6 +49,11 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:appcompat-v7:23.3.0'
     compile project(':nineOldAndroids')
 }
+
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: "${project.rootProject.rootDir}/nuuneoi-scripts/installv1.gradle"
+apply from: "${project.rootProject.rootDir}/nuuneoi-scripts/bintrayv1.gradle"
