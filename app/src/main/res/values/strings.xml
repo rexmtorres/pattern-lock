@@ -17,6 +17,7 @@
     <string name="change_pattern">Change Pattern</string>
     <string name="clear_pattern">Clear Pattern</string>
     <string name="change_pattern_theme">Change Pattern Theme</string>
+    <string name="about">About</string>
 
     <string name="dialog_title">Choose theme to apply to pattern lock</string>
     <string-array name="pattern_themes">
@@ -28,4 +29,17 @@
     <string name="pattern_not_cleared">Pattern was not erased!</string>
     <string name="pattern_changed">Pattern has been changed!</string>
     <string name="pattern_not_changed">Pattern was not changed!</string>
+
+    <string name="title_activity_about">About</string>
+    <string name="about_name">Locked Launcher</string>
+    <string name="about_description">
+         This sample app is a crude but working implementation of a launcher.\n
+        It uses the <b>pattern-lock</b> library to grant the user access to an application
+        only if he/she knows the pattern to unlock it, thus, offering some protection.\n
+        Note, however, that this is only a demo application and does not offer any real
+        protection, as it\'s only made to showcase the <b>pattern-lock</b> view.
+    </string>
+    <string name="about_author">Rex Mag-uyon Torres &#169;2016</string>
+    <string name="about_source"><a href="https://github.com/rexmtorres/pattern-lock">pattern-lock Library on GitHub</a></string>
+    <string name="email_me">Send me an email.</string>
 </resources>

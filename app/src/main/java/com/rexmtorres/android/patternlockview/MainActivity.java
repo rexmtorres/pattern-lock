@@ -136,6 +136,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.changePatternTheme:
                 changePatternTheme();
                 return true;
+            case R.id.about:
+                startActivity(new Intent(this, AboutActivity.class));
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

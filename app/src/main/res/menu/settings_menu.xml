@@ -32,4 +32,10 @@
         android:title="@string/change_pattern_theme"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="5"
+        android:title="@string/about"
+        app:showAsAction="never"/>
+
 </menu>
