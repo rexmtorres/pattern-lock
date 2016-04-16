@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-def libVersion = "0.1.0"
+def libVersion = "0.1.1-alpha"
 
 // How to upload to jcenter: http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
 
@@ -44,13 +44,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    libraryVariants.all { variants ->
+        def capitalizedName = variants.name.capitalize()
+        // Force nineOldAndroids to copy its JARs to patternLock's lib folder
+        tasks["check${capitalizedName}Manifest"].dependsOn rootProject.project(":nineOldAndroids").tasks["assemble${capitalizedName}"]
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
-    compile project(':nineOldAndroids')
+    compile 'com.nineoldandroids:parent:2.4.0'
+    provided project(':nineOldAndroids')
+    debugCompile fileTree(include: ['*.jar'], dir: 'libs/debug')
+    releaseCompile fileTree(include: ['*.jar'], dir: 'libs/release')
 }
 
 //apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
